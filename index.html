@@ -626,6 +626,18 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .voice-btn { pointer-events: auto; width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.7); background: var(--paper); box-shadow: var(--card-shadow); display: grid; place-items: center; cursor: pointer; font-size: 24px; transition: transform 0.12s; }
 .voice-btn:hover { transform: scale(1.08); }
 .voice-btn.off { opacity: 0.7; filter: grayscale(0.6); }
+/* ---------- Hearth Isle builder: hover label, undo & view buttons ---------- */
+.hb-tip { position: absolute; left: 0; top: 0; background: rgba(31, 45, 74, 0.9); color: #fff; font-weight: 600; font-size: 14px; padding: 5px 11px; border-radius: 10px; pointer-events: none; white-space: nowrap; z-index: 4; }
+.hb-tip.bad { background: rgba(201, 87, 58, 0.95); }
+.hb-view { position: absolute; right: 16px; bottom: 18px; display: flex; gap: 6px; align-items: center; background: var(--paper); border-radius: 20px; padding: 6px; box-shadow: var(--card-shadow); pointer-events: auto; }
+.hb-view button { width: 46px; height: 46px; border: 0; border-radius: 14px; background: var(--paper2); color: var(--bark); font-size: 22px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+.hb-view button small { font-size: 10px; font-weight: 700; margin-top: 2px; }
+.hb-view button:hover { background: #fff; }
+.hb-view .hb-undo, .hb-view .hb-redo { width: 58px; background: linear-gradient(180deg, #3fc1c9, #1f8fa6); color: #fff; box-shadow: 0 3px 0 #17697a; }
+.hb-view button.off { opacity: 0.4; filter: grayscale(0.6); }
+.hb-sep { width: 1px; height: 32px; background: var(--line); margin: 0 2px; }
+.hb.visiting .hb-view .hb-undo, .hb.visiting .hb-view .hb-redo, .hb.visiting .hb-sep { display: none; }
+@media (max-width: 760px) { .hb-view { bottom: 76px; } .hb-view button { width: 40px; height: 40px; } }
 </style>
 </head>
 <body>
@@ -661,7 +673,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   }
   Promise.all(files.map(function (f) { return get(f, 2); })).then(function () {
     var s = document.createElement('script');
-    s.src = 'game.js?v=8348dbe261';
+    s.src = 'game.js?v=e72b8d9e9f';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
