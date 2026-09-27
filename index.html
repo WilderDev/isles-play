@@ -448,14 +448,44 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .nc-input { font-family: var(--font); font-size: 30px; font-weight: 700; text-align: center; padding: 8px 16px; border-radius: 18px; border: 3px solid var(--ink); width: min(320px, 80%); outline: none; color: var(--ink); background: #fff; margin-top: 8px; }
 
 /* ---------- touch controls ---------- */
-#touch { position: fixed; inset: 0; pointer-events: none; z-index: 8; }
-#touch .t-stick { position: absolute; left: 30px; bottom: 30px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255, 255, 255, 0.35); border: 3px solid rgba(31, 45, 74, 0.5); pointer-events: auto; display: grid; place-items: center; }
-#touch .t-knob { width: 60px; height: 60px; border-radius: 50%; background: rgba(255, 255, 255, 0.9); border: 3px solid var(--ink); }
-#touch .t-btns { position: absolute; right: 20px; bottom: 110px; display: grid; grid-template-columns: repeat(2, 76px); gap: 10px; pointer-events: none; }
-#touch .t-btn { pointer-events: auto; width: 76px; height: 76px; border-radius: 50%; border: 3px solid var(--ink); background: rgba(255, 248, 239, 0.9); font-size: 26px; font-family: var(--font); font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
-#touch .t-btn small { font-size: 11px; margin-top: 3px; }
-#touch .t-top { position: absolute; top: 190px; right: 16px; display: flex; flex-direction: column; gap: 8px; }
-#touch .t-sm { pointer-events: auto; width: 52px; height: 52px; border-radius: 16px; border: 3px solid var(--ink); background: rgba(255, 248, 239, 0.9); font-size: 24px; }
+#touch { position: fixed; inset: 0; pointer-events: none; z-index: 8; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#touch.hide { display: none; }
+#touch.stick-only .t-btns, #touch.stick-only .t-top { display: none; }
+#touch .t-stick { position: absolute; left: calc(28px + env(safe-area-inset-left)); bottom: calc(28px + env(safe-area-inset-bottom)); width: 150px; height: 150px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: 3px solid rgba(31, 45, 74, 0.45); pointer-events: auto; display: grid; place-items: center; transition: opacity .2s; }
+#touch .t-stick.held { background: rgba(255, 255, 255, 0.45); transition: none; }
+#touch .t-knob { width: 64px; height: 64px; border-radius: 50%; background: rgba(255, 255, 255, 0.95); border: 3px solid var(--ink); box-shadow: 0 4px 0 rgba(31, 45, 74, .25); }
+/* big thumb buttons in an arc around the bottom-right corner: Jump biggest, Action next to it */
+#touch .t-btns { position: absolute; right: calc(18px + env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); width: 250px; height: 250px; pointer-events: none; }
+#touch .t-btn { position: absolute; pointer-events: auto; width: 74px; height: 74px; border-radius: 50%; border: 3px solid var(--ink); background: rgba(255, 248, 239, 0.92); color: var(--ink); font-size: 28px; font-family: var(--font); font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; box-shadow: 0 5px 0 rgba(31, 45, 74, .25); touch-action: none; -webkit-tap-highlight-color: transparent; }
+#touch .t-btn small { font-size: 12px; margin-top: 3px; }
+#touch .t-btn.down { transform: translateY(3px) scale(.94); box-shadow: 0 2px 0 rgba(31, 45, 74, .25); }
+#touch .t-jump { right: 0; bottom: 0; width: 108px; height: 108px; font-size: 40px; background: linear-gradient(180deg, #fff6d8, #ffd27a); }
+#touch .t-act { right: 124px; bottom: 6px; width: 94px; height: 94px; font-size: 36px; }
+#touch .t-act.ready { background: linear-gradient(180deg, #d9ffe9, #8fe3b4); animation: tpulse 1s ease-in-out infinite; }
+@keyframes tpulse { 50% { transform: scale(1.08); } }
+#touch .t-ability { right: 8px; bottom: 124px; }
+#touch .t-lantern { right: 100px; bottom: 112px; }
+#touch .t-ride { right: 176px; bottom: 170px; width: 62px; height: 62px; font-size: 24px; }
+#touch .t-ride small { font-size: 11px; }
+#touch .t-top { position: absolute; left: calc(16px + env(safe-area-inset-left)); bottom: calc(200px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 10px; }
+#touch .t-sm { pointer-events: auto; width: 56px; height: 56px; border-radius: 18px; border: 3px solid var(--ink); background: rgba(255, 248, 239, 0.92); font-size: 26px; box-shadow: 0 4px 0 rgba(31, 45, 74, .2); touch-action: none; -webkit-tap-highlight-color: transparent; }
+#touch .t-sm.down { transform: translateY(2px); }
+/* phones and short screens: a little smaller so the scene still shows */
+@media (max-height: 560px) {
+  #touch .t-stick { width: 120px; height: 120px; left: 18px; bottom: 18px; }
+  #touch .t-knob { width: 52px; height: 52px; }
+  #touch .t-btns { transform: scale(.78); transform-origin: bottom right; }
+  #touch .t-top { flex-direction: row; left: 50%; bottom: auto; top: 10px; transform: translateX(-50%); }
+  #touch .t-sm { width: 46px; height: 46px; font-size: 22px; border-radius: 14px; }
+  /* no room for the round map above the thumb buttons: the 🗺 button opens the big one */
+  .touch-mode .minimap-wrap { display: none; }
+  .touch-mode .hud-tr { transform: scale(.85); transform-origin: top right; }
+  .touch-mode .teach { bottom: 96px; }
+}
+/* the teach card and helper hand sit above the thumbs on tablets */
+.touch-mode .teach { bottom: 150px; }
+.touch-mode .dialog { bottom: 18px; }
+.touch-mode canvas { touch-action: none; }
 .touch-mode .buddybar { bottom: 8px; transform: translateX(-50%) scale(0.85); }
 .touch-mode .hint { top: 8px; font-size: 15px; }
 
@@ -792,12 +822,12 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   <div style="text-align:center">✨ Loading the Emberlight Isles... ✨<div style="font-size:18px;margin-top:10px;opacity:.8">growing trees, puffing clouds, waking up Kindlings</div></div>
 </div>
 <script>(function () {
-  var files = [{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":275792,"h":"704ca90e6b"},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d"},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a"},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/voice/lines.bin","s":4977470,"h":"8a1c8e6cb4","later":1}], total = 4724372, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
+  var files = [{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":404400,"h":"bb16eb7e15"},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d"},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a"},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/voice/lines.bin","s":5834076,"h":"602bda8393","later":1}], total = 4852980, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
   var now = files.filter(function (f) { return !f.later; }), later = files.filter(function (f) { return f.later; });
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=e438c93cb3';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=aad793c9c1';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -824,7 +854,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=e438c93cb3';
+    s.src = 'game.js?v=aad793c9c1';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
