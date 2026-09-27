@@ -301,6 +301,8 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .set-h:first-child { margin-top: 0; }
 .settings-row small { font-size: 13px; color: var(--ink2); font-weight: 600; }
 .btn.danger { background: #ff5a3d; color: #fff; }
+.btn.holding { background: linear-gradient(to right, #b3261e 50%, #ff5a3d 50%); background-size: 200% 100%; background-position: right; animation: holdfill 2s linear forwards; }
+@keyframes holdfill { to { background-position: left; } }
 @media (max-width: 600px) { .settings-row { flex-wrap: wrap; font-size: 16px; } .settings-row input[type=range] { width: 100%; } }
 
 /* ---------- battle ---------- */
@@ -388,6 +390,8 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .sc-del { position: absolute; top: 8px; right: 8px; font-family: var(--font); font-size: 16px; font-weight: 700; background: #fff; color: var(--ink); border: 2.5px solid var(--ink); border-radius: 999px; padding: 3px 9px; cursor: pointer; box-shadow: 0 3px 0 var(--ink); outline: none; }
 .sc-del:focus-visible { box-shadow: 0 3px 0 var(--ink), 0 0 0 4px #ffd36b; }
 .save-card.sure .sc-del { left: 8px; right: 8px; background: #ff5a3d; color: #fff; font-size: 15px; animation: wobble 0.4s; }
+.sc-del.danger { left: 8px; right: 8px; background: #ff5a3d; color: #fff; font-size: 15px; }
+.sc-del.holding { background: linear-gradient(to right, #b3261e 50%, #ff5a3d 50%); background-size: 200% 100%; background-position: right; animation: holdfill 2s linear forwards; }
 @keyframes wobble { 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
 @media (max-width: 700px) { .save-card { width: 150px; } .sc-main { min-height: 200px; } .sc-face, .sc-new { width: 64px; height: 64px; } .sc-face::before { top: 8px; width: 38px; height: 36px; } .sc-face i { top: 26px; } .sc-name { font-size: 19px; } }
 .title-foot { position: absolute; bottom: 12px; font-size: 14px; font-weight: 600; color: #fff; text-shadow: 0 1px 0 var(--ink); }
@@ -406,6 +410,8 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .newgame.side .swatch { width: 48px; height: 48px; }
 .sw-label { font-weight: 700; margin-top: 6px; }
 .ng-tip { margin: 4px 0 12px; font-size: 14px; color: var(--ink2); font-weight: 600; }
+.ng-world { display: block; margin: 14px auto 0; background: none; border: 0; font: inherit; font-size: 13px; font-weight: 700; color: var(--ink2); opacity: .7; cursor: pointer; text-decoration: underline dotted; }
+.ng-world:hover { opacity: 1; }
 @media (max-aspect-ratio: 11/10) {
   .newgame.side { place-items: end center; padding: 0 0 12px; background: linear-gradient(0deg, rgba(15, 30, 60, 0.3), rgba(15, 30, 60, 0) 55%); }
   .newgame.side .ng-panel { width: min(560px, 96vw); padding: 14px 16px; }
@@ -754,7 +760,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=9f5149f1f6';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=b850f77af0';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -781,7 +787,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=9f5149f1f6';
+    s.src = 'game.js?v=b850f77af0';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
