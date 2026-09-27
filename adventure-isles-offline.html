@@ -5113,7 +5113,8 @@ ${e?"varying vec2 vFuv;":""}`).replace("#include <color_fragment>",`#include <co
   }
   { // painted cliffs: layered rock strata with soft bands, cracks and a mossy lip at the top
     float steep = 1.0 - smoothstep( 0.35, 0.62, vWNy );
-    float side = steep * smoothstep( -0.45, -0.1, vWNy );
+    // cliffs and the undersides of floating islands are both painted rock (no flat blue bellies)
+    float side = steep;
     if ( side > 0.001 ) {
       vec2 q = vec2( vSWorld.x * 0.55 + vSWorld.z * 0.45, vSWorld.y );
       float warp = pNoise( q * vec2( 0.25, 0.5 ) ) * 1.6;
@@ -5156,8 +5157,8 @@ ${e?"varying vec2 vFuv;":""}`).replace("#include <color_fragment>",`#include <co
     // undersides of floating islands catch soft, cool light bouncing up off the cloud sea
     float under = smoothstep( 0.05, -0.75, vWNy );
     reflectedLight.indirectDiffuse *= mix( mix( 0.16, 1.0, sky ), 0.82, under ) * ao;
-    reflectedLight.indirectDiffuse *= mix( vec3( 1.0 ), vec3( 0.86, 0.94, 1.1 ), under );
-    reflectedLight.indirectDiffuse += diffuseColor.rgb * vec3( 0.3, 0.36, 0.46 ) * under * uDay;
+    reflectedLight.indirectDiffuse *= mix( vec3( 1.0 ), vec3( 0.92, 0.96, 1.04 ), under );
+    reflectedLight.indirectDiffuse += diffuseColor.rgb * vec3( 0.34, 0.33, 0.36 ) * under * uDay; // soft, near-neutral bounce off the cloud sea
     float nightK = 1.0 - smoothstep( 0.3, 1.0, uDay ) * 0.85;
     totalEmissiveRadiance += diffuseColor.rgb * vec3( 1.0, 0.78, 0.52 ) * vTL.z * 1.25 * nightK;
     totalEmissiveRadiance += diffuseColor.rgb * vTL.w * mix( 0.35, 1.0, nightK ) * ( 0.9 + 0.1 * sin( uTime * 2.3 + vSWorld.x * 0.7 + vSWorld.z * 0.5 ) );
