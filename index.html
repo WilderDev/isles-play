@@ -498,17 +498,13 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .hb-inv.on { background: #e8795a; color: #fff; box-shadow: none; border-radius: 14px; }
 .hb-inv.on i { background: rgba(255, 255, 255, 0.25); color: #fff; }
 .hb-inv.on small { color: #ffe9e0; }
-.hb-decor { position: absolute; left: 272px; top: 50%; transform: translateY(-50%); display: grid; grid-template-columns: repeat(3, 1fr); max-height: calc(100vh - 150px); overflow-y: auto; gap: 6px; background: var(--paper); border-radius: 20px; padding: 8px; box-shadow: var(--card-shadow); pointer-events: auto; }
+.hb-decor { position: absolute; left: 272px; top: 50%; transform: translateY(-50%); display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; background: var(--paper); border-radius: 20px; padding: 8px; box-shadow: var(--card-shadow); pointer-events: auto; }
 .hb-decor button { border: 2px solid transparent; background: var(--paper2); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; align-items: center; gap: 1px; width: 118px; color: var(--bark); }
 .hb-decor button span { font-size: 26px; }
 .hb-decor button b { font-weight: 600; font-size: 13px; }
 .hb-decor button small { font-family: var(--sans); font-size: 10.5px; font-weight: 700; color: var(--bark2); text-align: center; }
 .hb-decor button.on { border-color: #f08a3c; background: #fff; }
 .hb-decor button.poor small { color: #c9573a; }
-.hb-decor button { width: 104px; padding: 6px; }
-.hb .wish { border-color: #ffc23d !important; box-shadow: 0 0 0 3px #ffc23d, 0 0 18px #ffc23d; animation: wishPulse 1s ease-in-out infinite alternate; }
-@keyframes wishPulse { from { filter: brightness(1); } to { filter: brightness(1.18); } }
-.lm-card.mail { border-bottom-color: #ffc23d; }
 .hb-pal { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; padding: 8px 14px 8px 8px; background: var(--cream); border: 3px solid var(--ink); border-radius: 20px; box-shadow: var(--shadow); pointer-events: auto; animation: menuIn .25s cubic-bezier(.3, 1.4, .5, 1); }
 .hb-pal img { width: 60px; height: 60px; border-radius: 14px; background: #fff; }
 .hb-pal-txt { display: flex; flex-direction: column; min-width: 120px; }
@@ -520,8 +516,8 @@ body.at-home .crosshair, body.at-home .target-info, body.at-home .home-btn, body
 @media (max-width: 760px) {
   .hb-tool { width: 60px; padding: 5px; }
   .hb-name, .hb-tool kbd { display: none; }
-  .hb-decor { left: 92px; grid-template-columns: repeat(2, 1fr); }
-  .hb-decor button { width: 88px; }
+  .hb-decor { left: 92px; grid-template-columns: 1fr; }
+  .hb-decor button { width: 96px; }
   .hb-top { top: auto; bottom: 16px; }
   .hb-title { display: none; }
 }
@@ -657,7 +653,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=108ec94795';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=93006e8376';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -684,7 +680,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=108ec94795';
+    s.src = 'game.js?v=93006e8376';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
