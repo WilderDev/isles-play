@@ -1,0 +1,14 @@
+{
+  "name": "Adventure Isles",
+  "short_name": "Adventure Isles",
+  "description": "A cozy sky-island adventure. Explore, make Braveling friends and grow your home!",
+  "start_url": "../../",
+  "scope": "../../",
+  "display": "fullscreen",
+  "background_color": "#6fc4ff",
+  "theme_color": "#6fc4ff",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
