@@ -301,6 +301,8 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .set-h:first-child { margin-top: 0; }
 .settings-row small { font-size: 13px; color: var(--ink2); font-weight: 600; }
 .btn.danger { background: #ff5a3d; color: #fff; }
+.btn.holding { background: linear-gradient(to right, #b3261e 50%, #ff5a3d 50%); background-size: 200% 100%; background-position: right; animation: holdfill 2s linear forwards; }
+@keyframes holdfill { to { background-position: left; } }
 @media (max-width: 600px) { .settings-row { flex-wrap: wrap; font-size: 16px; } .settings-row input[type=range] { width: 100%; } }
 
 /* ---------- battle ---------- */
@@ -388,6 +390,8 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .sc-del { position: absolute; top: 8px; right: 8px; font-family: var(--font); font-size: 16px; font-weight: 700; background: #fff; color: var(--ink); border: 2.5px solid var(--ink); border-radius: 999px; padding: 3px 9px; cursor: pointer; box-shadow: 0 3px 0 var(--ink); outline: none; }
 .sc-del:focus-visible { box-shadow: 0 3px 0 var(--ink), 0 0 0 4px #ffd36b; }
 .save-card.sure .sc-del { left: 8px; right: 8px; background: #ff5a3d; color: #fff; font-size: 15px; animation: wobble 0.4s; }
+.sc-del.danger { left: 8px; right: 8px; background: #ff5a3d; color: #fff; font-size: 15px; }
+.sc-del.holding { background: linear-gradient(to right, #b3261e 50%, #ff5a3d 50%); background-size: 200% 100%; background-position: right; animation: holdfill 2s linear forwards; }
 @keyframes wobble { 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
 @media (max-width: 700px) { .save-card { width: 150px; } .sc-main { min-height: 200px; } .sc-face, .sc-new { width: 64px; height: 64px; } .sc-face::before { top: 8px; width: 38px; height: 36px; } .sc-face i { top: 26px; } .sc-name { font-size: 19px; } }
 .title-foot { position: absolute; bottom: 12px; font-size: 14px; font-weight: 600; color: #fff; text-shadow: 0 1px 0 var(--ink); }
@@ -406,6 +410,8 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .newgame.side .swatch { width: 48px; height: 48px; }
 .sw-label { font-weight: 700; margin-top: 6px; }
 .ng-tip { margin: 4px 0 12px; font-size: 14px; color: var(--ink2); font-weight: 600; }
+.ng-world { display: block; margin: 14px auto 0; background: none; border: 0; font: inherit; font-size: 13px; font-weight: 700; color: var(--ink2); opacity: .7; cursor: pointer; text-decoration: underline dotted; }
+.ng-world:hover { opacity: 1; }
 @media (max-aspect-ratio: 11/10) {
   .newgame.side { place-items: end center; padding: 0 0 12px; background: linear-gradient(0deg, rgba(15, 30, 60, 0.3), rgba(15, 30, 60, 0) 55%); }
   .newgame.side .ng-panel { width: min(560px, 96vw); padding: 14px 16px; }
@@ -739,6 +745,43 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .pickup.pkbump b { display: inline-block; animation: pkbump 0.35s cubic-bezier(.3, 1.8, .5, 1); }
 @keyframes pkbump { 0% { transform: scale(1); } 40% { transform: scale(1.45) rotate(-6deg); } 100% { transform: scale(1); } }
 .btn:active { transition: transform 0.05s; }
+
+/* ---------- Keeper Skills + Dream Upgrades (src/progress/skills.js) ---------- */
+.sk-pop { position: absolute; left: 50%; top: 18%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; background: var(--cream); border: 3px solid var(--ink); border-radius: 999px; padding: 8px 22px 8px 8px; box-shadow: var(--shadow); animation: skIn 0.5s cubic-bezier(.3, 1.6, .5, 1) both; pointer-events: none; z-index: 39; }
+.sk-pop b { display: block; font-size: 24px; }
+.sk-pop small { font-size: 15px; font-weight: 700; color: var(--ink2); }
+.sk-pop.out { animation: skOut 0.4s ease-in forwards; }
+.sk-pop-icon { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font-size: 32px; background: var(--c); border: 3px solid var(--ink); }
+@keyframes skIn { from { transform: translate(-50%, -60px) scale(0.6); opacity: 0; } }
+@keyframes skOut { to { transform: translate(-50%, -40px); opacity: 0; } }
+.sk-sub { margin: 4px 0 12px; font-size: 17px; }
+.sk-rows { display: flex; flex-direction: column; gap: 10px; }
+.sk-row { background: #fff; border: 3px solid var(--ink); border-left: 12px solid var(--c); border-radius: 18px; padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.sk-skill { display: flex; align-items: center; gap: 10px; flex: 1 1 260px; min-width: 0; }
+.sk-icon { font-size: 40px; }
+.sk-mid { flex: 1; min-width: 0; }
+.sk-mid b { font-size: 20px; }
+.sk-mid b span { background: var(--c); border: 2px solid var(--ink); border-radius: 999px; padding: 0 8px; font-size: 15px; margin-left: 4px; }
+.sk-mid small { opacity: 0.7; }
+.sk-stars { font-size: 24px; font-weight: 700; animation: stkBump 1.2s infinite alternate; }
+.sk-perks { display: flex; gap: 8px; flex: 1 1 360px; }
+.sk-perk { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 6px; border: 3px solid rgba(31, 45, 74, 0.35); border-radius: 16px; background: #faf6f0; font-family: var(--font); color: var(--ink); cursor: pointer; text-align: center; }
+.sk-perk-icon { font-size: 30px; }
+.sk-perk b { font-size: 15px; }
+.sk-perk small { font-size: 12px; opacity: 0.8; line-height: 1.15; }
+.sk-pips { color: var(--c, #ffb347); font-size: 14px; letter-spacing: 2px; -webkit-text-stroke: 0.5px var(--ink); }
+.sk-perk.can { border-color: var(--ink); background: #fff6c8; box-shadow: 0 0 0 3px #ffe066, 0 4px 0 var(--ink); animation: skGlow 1.4s infinite alternate; }
+.sk-perk.can i { position: absolute; top: -12px; right: -6px; font-style: normal; font-weight: 700; font-size: 13px; background: #ffe066; border: 2px solid var(--ink); border-radius: 999px; padding: 1px 8px; }
+.sk-perk.max { opacity: 0.75; }
+.sk-perk.bought { animation: stkBump 0.6s cubic-bezier(.3, 1.8, .5, 1); }
+@keyframes skGlow { to { box-shadow: 0 0 0 5px #ffe066, 0 4px 0 var(--ink); } }
+.sk-dream { position: absolute; inset: 0; display: flex; background: radial-gradient(ellipse at 50% 20%, rgba(60, 60, 140, 0.55), rgba(10, 14, 40, 0.85)); z-index: 30; pointer-events: auto; animation: menuIn 0.3s both; overflow: auto; padding: 16px; }
+.sk-dream.out { opacity: 0; transition: opacity 0.3s; }
+.sk-dream-card { margin: auto; width: min(900px, 96vw); background: var(--cream); border: 3px solid var(--ink); border-radius: 24px; padding: 16px 18px; box-shadow: var(--shadow); text-align: center; }
+.sk-dream-card h2 { margin: 0; font-size: 32px; }
+.sk-dream-card .sk-rows { text-align: left; }
+.sk-dream-card .sk-done { margin-top: 14px; }
+@media (max-width: 760px) { .sk-perks { flex-basis: 100%; } }
 </style>
 </head>
 <body>
@@ -749,12 +792,12 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   <div style="text-align:center">✨ Loading the Emberlight Isles... ✨<div style="font-size:18px;margin-top:10px;opacity:.8">growing trees, puffing clouds, waking up Kindlings</div></div>
 </div>
 <script>(function () {
-  var files = [{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":275792,"h":"704ca90e6b"},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d"},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a"},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/voice/lines.bin","s":4977470,"h":"8a1c8e6cb4","later":1}], total = 4724372, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
+  var files = [{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":275792,"h":"704ca90e6b"},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d"},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a"},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/voice/lines.bin","s":5834076,"h":"602bda8393","later":1}], total = 4724372, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
   var now = files.filter(function (f) { return !f.later; }), later = files.filter(function (f) { return f.later; });
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=dd3b17f77a';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=622f431ed6';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -781,7 +824,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=dd3b17f77a';
+    s.src = 'game.js?v=622f431ed6';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
