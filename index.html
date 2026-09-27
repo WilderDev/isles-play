@@ -646,6 +646,14 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
    and every card or dialog sits over all of them */
 .hint, .toasts, .lm-card { z-index: 6; }
 .menu-back, .dialog { z-index: 10; }
+
+/* ---- game feel (audio lane): bouncier pop-ins ---- */
+@keyframes toastIn { 0% { transform: translateY(-20px) scale(0.6); opacity: 0; } 60% { transform: translateY(2px) scale(1.08); opacity: 1; } 100% { transform: none; } }
+@keyframes pickIn { 0% { transform: translateX(40px) scale(0.6); opacity: 0; } 60% { transform: translateX(-4px) scale(1.12); opacity: 1; } 100% { transform: none; } }
+.pickup.pkbump img { animation: pkbump 0.35s cubic-bezier(.3, 1.8, .5, 1); }
+.pickup.pkbump b { display: inline-block; animation: pkbump 0.35s cubic-bezier(.3, 1.8, .5, 1); }
+@keyframes pkbump { 0% { transform: scale(1); } 40% { transform: scale(1.45) rotate(-6deg); } 100% { transform: scale(1); } }
+.btn:active { transition: transform 0.05s; }
 </style>
 </head>
 <body>
@@ -661,7 +669,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=57dba6884b';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=324cf16196';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -688,7 +696,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=57dba6884b';
+    s.src = 'game.js?v=324cf16196';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
