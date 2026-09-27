@@ -651,6 +651,33 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .hb.visiting .hb-view .hb-undo, .hb.visiting .hb-view .hb-redo, .hb.visiting .hb-sep { display: none; }
 @media (max-width: 760px) { .hb-view { bottom: 76px; } .hb-view button { width: 40px; height: 40px; } }
 
+/* ---------------- Minigames (src/minigames/) ---------------- */
+.mg-hud { position: absolute; left: 50%; top: 86px; transform: translateX(-50%) translateY(-12px); display: flex; gap: 14px; align-items: center; background: var(--cream); border: 3px solid var(--ink); border-radius: 999px; padding: 6px 20px; font-size: 26px; font-weight: 700; color: var(--ink); box-shadow: var(--shadow); opacity: 0; transition: opacity .3s, transform .3s; pointer-events: none; }
+.mg-hud.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.mg-hud .mg-ic { font-size: 30px; }
+.mg-hud .mg-sc { min-width: 42px; text-align: center; font-size: 32px; }
+.mg-hud .mg-tm { color: #1b6fa8; }
+.mg-hud .mg-bs { font-size: 18px; color: var(--ink2); }
+.mg-hud .mg-bs:empty, .mg-hud .mg-tm:empty { display: none; }
+.mg-hud.hurry .mg-tm { color: #e0452e; animation: mgHurry .5s infinite alternate; }
+@keyframes mgHurry { to { transform: scale(1.18); } }
+.mg-card { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(460px, 92vw); background: var(--cream); border: 4px solid var(--ink); border-radius: 26px; padding: 18px 22px 20px; text-align: center; color: var(--ink); box-shadow: var(--shadow); pointer-events: auto; animation: bigIn .5s cubic-bezier(.3, 1.6, .5, 1); z-index: 40; }
+.mg-card .mg-head { font-size: 20px; font-weight: 700; color: var(--ink2); }
+.mg-card .mg-medal { font-size: 38px; font-weight: 700; margin: 4px 0; }
+.mg-card .mg-score { font-size: 30px; font-weight: 700; color: #1b6fa8; }
+.mg-card .mg-best { font-size: 18px; font-weight: 600; margin-top: 2px; }
+.mg-card .mg-best.new { font-size: 24px; color: #e08a00; animation: mgHurry .6s infinite alternate; }
+.mg-card .mg-extra { font-size: 18px; margin-top: 6px; }
+.mg-card .mg-prizes { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0 6px; }
+.mg-card .mg-prize { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 3px 12px 3px 6px; font-size: 16px; font-weight: 600; }
+.mg-card .mg-prize img { width: 26px; height: 26px; image-rendering: pixelated; }
+.mg-card .mg-next { font-size: 16px; color: var(--ink2); }
+.mg-card .mg-turns { font-size: 16px; margin-top: 6px; font-weight: 600; }
+.mg-card .mg-btns { display: flex; gap: 12px; justify-content: center; margin-top: 14px; }
+.mg-card button { font-size: 22px; font-weight: 700; padding: 10px 20px; border-radius: 16px; border: 3px solid var(--ink); cursor: pointer; box-shadow: 0 4px 0 var(--ink); color: var(--ink); }
+.mg-card .mg-again { background: #6fdc5a; }
+.mg-card .mg-done { background: #fff; }
+.mg-card button:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
 /* ---------- Sticker Book + Keeper Rank (src/progress/stickers.js) ---------- */
 .stk { --c: #ffc93c; --r: 0deg; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #fff 0 18%, var(--c) 60%); border: 4px solid #fff; box-shadow: 0 0 0 3px var(--ink), 0 5px 0 3px rgba(31, 45, 74, 0.35); transform: rotate(var(--r)); flex: none; }
 .stk span { font-size: 34px; line-height: 1; filter: drop-shadow(0 2px 0 rgba(31, 45, 74, 0.35)); }
@@ -722,12 +749,12 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   <div style="text-align:center">✨ Loading the Emberlight Isles... ✨<div style="font-size:18px;margin-top:10px;opacity:.8">growing trees, puffing clouds, waking up Kindlings</div></div>
 </div>
 <script>(function () {
-  var files = [{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":275792,"h":"704ca90e6b"},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d"},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a"},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/voice/lines.bin","s":5541401,"h":"5f929ac18e","later":1}], total = 4724372, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
+  var files = [{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":275792,"h":"704ca90e6b"},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d"},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a"},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/voice/lines.bin","s":4977470,"h":"8a1c8e6cb4","later":1}], total = 4724372, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
   var now = files.filter(function (f) { return !f.later; }), later = files.filter(function (f) { return f.later; });
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=b6eae7a57c';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=9f5149f1f6';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -754,7 +781,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=b6eae7a57c';
+    s.src = 'game.js?v=9f5149f1f6';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
