@@ -67,14 +67,6 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .minimap-n { position: absolute; top: 3px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 13px; color: #fff; text-shadow: 0 0 3px var(--ink), 0 0 3px var(--ink); }
 .pill { background: var(--cream); border: 3px solid var(--ink); border-radius: 999px; padding: 3px 14px; font-weight: 700; font-size: 18px; box-shadow: 0 4px 0 rgba(31, 45, 74, 0.2); display: flex; align-items: center; gap: 6px; }
 .pill .star { font-size: 20px; }
-/* adventure lane: Sky Shells + treasure chests found */
-.pill.shells { gap: 4px; }
-.pill.shells b { margin-right: 6px; }
-.pill.shells.bump { animation: shellbump 0.35s ease-out; }
-@keyframes shellbump { 40% { transform: scale(1.18); } }
-.sidequest { position: absolute; left: 16px; top: 64px; pointer-events: none; max-width: min(330px, 56vw); background: #eaf7ff; border: 3px solid var(--ink); border-radius: 14px; padding: 5px 12px; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 0 rgba(31, 45, 74, 0.2); }
-.sidequest.hidden { display: none; }
-.sidequest .sq-n { margin-left: auto; color: #2a7ad8; }
 .clock { font-size: 15px; }
 .bar { height: 10px; background: #e8dcd0; border-radius: 99px; border: 2px solid var(--ink); overflow: hidden; margin-top: 3px; }
 .bar > div { height: 100%; border-radius: 99px; transition: width 0.4s; }
@@ -727,7 +719,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=014d68e794';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=61bb866570';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -754,7 +746,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=014d68e794';
+    s.src = 'game.js?v=61bb866570';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
