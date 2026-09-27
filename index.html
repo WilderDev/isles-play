@@ -895,12 +895,12 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   <div style="text-align:center">✨ Loading the Adventure Isles... ✨<div style="font-size:18px;margin-top:10px;opacity:.8">growing trees, puffing clouds, waking up Bravelings</div></div>
 </div>
 <script>(function () {
-  var files = [{"p":"assets/models/baron.glb","s":247276,"h":"95c3298e96","later":1},{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/flicker.glb","s":172244,"h":"4a37809311","later":1},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/hoot.glb","s":450036,"h":"ecf2d6f721"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":1172544,"h":"7fcb0689cd"},{"p":"assets/models/kingmagmaw.glb","s":340536,"h":"3a92dafa80","later":1},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d","later":1},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a","later":1},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/models/wick.glb","s":250124,"h":"e58a3c5028","later":1},{"p":"assets/voice/lines.bin","s":8009243,"h":"5abc1a8806","later":1}], total = 5698384, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
+  var files = [{"p":"assets/models/baron.glb","s":247276,"h":"95c3298e96","later":1},{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/flicker.glb","s":172244,"h":"4a37809311","later":1},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/hoot.glb","s":450036,"h":"ecf2d6f721"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":2962508,"h":"f82a5441ff"},{"p":"assets/models/kingmagmaw.glb","s":340536,"h":"3a92dafa80","later":1},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d","later":1},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a","later":1},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/models/wick.glb","s":250124,"h":"e58a3c5028","later":1},{"p":"assets/voice/lines.bin","s":8009243,"h":"5abc1a8806","later":1}], total = 7488348, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
   var now = files.filter(function (f) { return !f.later; }), later = files.filter(function (f) { return f.later; });
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=a3acd0210c';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=bdcc69c9f3';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -927,7 +927,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=a3acd0210c';
+    s.src = 'game.js?v=bdcc69c9f3';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
