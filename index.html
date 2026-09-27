@@ -836,6 +836,13 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .sk-dream-card .sk-rows { text-align: left; }
 .sk-dream-card .sk-done { margin-top: 14px; }
 @media (max-width: 760px) { .sk-perks { flex-basis: 100%; } }
+
+/* ---- controllers (src/ui/padicons.js): button pictures, and a big ring on whatever a press would pick ---- */
+.padb { display: inline-flex; align-items: center; justify-content: center; min-width: 1.7em; height: 1.7em; padding: 0 0.45em; margin: 0 4px; border-radius: 0.6em; background: #2d3445; color: #fff; font-weight: 800; font-size: 0.95em; line-height: 1; border: 2px solid var(--ink); box-shadow: 0 2px 0 var(--ink); vertical-align: middle; }
+.padb-face { border-radius: 50%; padding: 0; width: 1.7em; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35); }
+.t-keys .padb { font-size: 20px; margin: 0 2px; }
+body.pad button:focus, body.pad .focusable:focus, body.pad .slot:focus, body.pad input:focus { outline: 5px solid #ffd36b; outline-offset: 3px; }
+body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
 </style>
 </head>
 <body>
@@ -851,7 +858,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=4f79e9a58a';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=4c0fab9544';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -878,7 +885,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=4f79e9a58a';
+    s.src = 'game.js?v=4c0fab9544';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
