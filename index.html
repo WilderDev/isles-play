@@ -630,6 +630,23 @@ body.at-home .crosshair, body.at-home .target-info, body.at-home .home-btn, body
 .lm-card.spirit span { color: #d6e4ff; }
 .hb-sh { border: 0; border-radius: 999px; padding: 10px 16px; font-size: 16px; font-weight: 700; color: #fff; background: linear-gradient(180deg, #7f8cff, #5561d8); box-shadow: 0 4px 0 #3b44a8, var(--card-shadow); }
 .hb-sh:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.hb-cam { border: 0; border-radius: 999px; padding: 10px 16px; font-size: 16px; font-weight: 700; color: #fff; background: linear-gradient(180deg, #ffc23d, #e89a1f); box-shadow: 0 4px 0 #b06f12, var(--card-shadow); }
+.hb-cam:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.hb.snap > *:not(.hb-count):not(.hb-flash) { visibility: hidden; }
+body.at-home:has(.hb.snap) #ui > *:not(.hb) { visibility: hidden; }
+.hb-count { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); font-size: 120px; font-weight: 800; color: #fff; text-shadow: 0 6px 0 rgba(0,0,0,.25), 0 0 30px rgba(0,0,0,.25); pointer-events: none; }
+.hb-count.go { animation: pop .6s ease-out; }
+.hb-flash { position: absolute; inset: 0; background: #fff; pointer-events: none; animation: hbFlash .7s ease-out forwards; }
+@keyframes hbFlash { from { opacity: .95; } to { opacity: 0; } }
+.hb-photo { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(20, 30, 40, .45); pointer-events: auto; z-index: 5; }
+.hb-pol { background: #fffaf0; padding: 14px 14px 12px; border-radius: 6px; box-shadow: 0 18px 40px rgba(0,0,0,.35); transform: rotate(-2deg); display: flex; flex-direction: column; align-items: center; gap: 8px; animation: menuIn .35s cubic-bezier(.3, 1.4, .5, 1); max-width: 86vw; }
+.hb-pol img { width: min(560px, 78vw); border-radius: 3px; display: block; }
+.hb-pol b { font-size: 18px; color: var(--bark, #3d3226); }
+.hb-pol-row { display: flex; gap: 10px; }
+.hb-pol-save { text-decoration: none; }
+.hb-upg { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); border: 0; border-radius: 18px; padding: 12px 18px; font-size: 17px; font-weight: 700; color: #fff; background: linear-gradient(180deg, #5ea341, #3f7f2a); box-shadow: 0 4px 0 #2c5c1d, var(--card-shadow); pointer-events: auto; display: flex; flex-direction: column; align-items: center; gap: 2px; animation: wishPulse 1.2s ease-in-out infinite alternate; }
+.hb-upg small { font-size: 12px; opacity: .92; }
+.hb-upg.poor { filter: grayscale(.5); animation: none; }
 .hb-share { position: absolute; inset: 0; background: rgba(15, 30, 50, 0.45); display: grid; place-items: center; pointer-events: auto; animation: menuIn .2s; }
 .hb-sh-sec { display: flex; flex-direction: column; gap: 8px; background: var(--paper2); border-radius: 16px; padding: 12px; margin-top: 10px; }
 .hb-sh-sec > b { font-size: 18px; }
@@ -834,7 +851,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=7102e48527';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=6a4f8cb3bb';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -861,7 +878,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=7102e48527';
+    s.src = 'game.js?v=6a4f8cb3bb';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
