@@ -419,6 +419,28 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .newgame.side .swatch { width: 48px; height: 48px; }
 .sw-label { font-weight: 700; margin-top: 6px; }
 .ng-tip { margin: 4px 0 12px; font-size: 14px; color: var(--ink2); font-weight: 600; }
+/* dress-up picker (src/ui/wardrobe.js): tabs, big picture buttons, swatches, surprise button */
+.wd-tabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 0 0 8px; }
+.wd-tab { font-family: var(--font); font-weight: 700; font-size: 13px; color: var(--ink); background: #fff; border: 3px solid var(--ink); border-radius: 16px; padding: 4px 8px 5px; min-width: 64px; cursor: pointer; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 0 rgba(31, 45, 74, 0.25); }
+.wd-tab span { font-size: 26px; line-height: 1.1; }
+.wd-tab.on { background: var(--pink, #ff6fa8); color: #fff; transform: translateY(-2px); }
+.wd-body { max-height: min(46vh, 430px); overflow-y: auto; padding: 4px 2px 6px; }
+.wd-label { font-weight: 700; margin: 8px 0 4px; font-size: 15px; }
+.wd-grid { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.wd-opt { font-family: var(--font); font-weight: 700; font-size: 12px; color: var(--ink); background: #fff; border: 3px solid var(--ink); border-radius: 16px; width: 76px; padding: 4px 2px 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 1px; box-shadow: 0 4px 0 rgba(31, 45, 74, 0.25); transition: transform 0.1s; }
+.wd-opt span { font-size: 32px; line-height: 1.15; }
+.wd-opt:hover { transform: translateY(-2px); }
+.wd-opt.on { background: #fff4c2; box-shadow: 0 0 0 4px #fff, 0 0 0 7px var(--pink2, #ff6fa8); }
+.wd-opt.locked { opacity: 0.55; filter: grayscale(0.6); }
+.newgame.side .wd-sw.swatches { margin: 2px 0 4px; gap: 8px; }
+.newgame.side .wd-sw .swatch { width: 40px; height: 40px; }
+.wd-note { min-height: 20px; font-weight: 700; font-size: 14px; color: var(--ink2); margin-top: 6px; }
+.wd-foot { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+@media (max-width: 700px), (max-aspect-ratio: 11/10) {
+  .wd-tab { min-width: 48px; font-size: 11px; padding: 3px 5px; } .wd-tab span { font-size: 22px; }
+  .wd-body { max-height: 30vh; } .wd-opt { width: 64px; } .wd-opt span { font-size: 26px; }
+  .newgame.side .wd-sw .swatch { width: 34px; height: 34px; }
+}
 .ng-world { display: block; margin: 14px auto 0; background: none; border: 0; font: inherit; font-size: 13px; font-weight: 700; color: var(--ink2); opacity: .7; cursor: pointer; text-decoration: underline dotted; }
 .ng-world:hover { opacity: 1; }
 @media (max-aspect-ratio: 11/10) {
@@ -848,11 +870,13 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .sk-dream-card .sk-rows { text-align: left; }
 .sk-dream-card .sk-done { margin-top: 14px; }
 @media (max-width: 760px) { .sk-perks { flex-basis: 100%; } }
+<<<<<<< HEAD
 /* calm pop-ups (src/ui/notify.js): several stickers share one card; the badge gets a soft dot for quiet ones */
 .stk-pop-row { display: flex; gap: 10px; animation: stkSlap 0.7s cubic-bezier(.3, 1.7, .5, 1) both; }
 .stk-badge { position: relative; }
 .stk-badge.has-new::after { content: ''; position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: #ff5a5a; border: 2px solid var(--ink); animation: stkDot 1.6s ease-in-out infinite; }
 @keyframes stkDot { 50% { transform: scale(1.25); } }
+=======
 
 /* ---- controllers (src/ui/padicons.js): button pictures, and a big ring on whatever a press would pick ---- */
 .padb { display: inline-flex; align-items: center; justify-content: center; min-width: 1.7em; height: 1.7em; padding: 0 0.45em; margin: 0 4px; border-radius: 0.6em; background: #2d3445; color: #fff; font-weight: 800; font-size: 0.95em; line-height: 1; border: 2px solid var(--ink); box-shadow: 0 2px 0 var(--ink); vertical-align: middle; }
@@ -860,6 +884,7 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .t-keys .padb { font-size: 20px; margin: 0 2px; }
 body.pad button:focus, body.pad .focusable:focus, body.pad .slot:focus, body.pad input:focus { outline: 5px solid #ffd36b; outline-offset: 3px; }
 body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
+>>>>>>> origin/main
 </style>
 </head>
 <body>
@@ -870,12 +895,12 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   <div style="text-align:center">✨ Loading the Adventure Isles... ✨<div style="font-size:18px;margin-top:10px;opacity:.8">growing trees, puffing clouds, waking up Bravelings</div></div>
 </div>
 <script>(function () {
-  var files = [{"p":"assets/models/baron.glb","s":247276,"h":"95c3298e96","later":1},{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/flicker.glb","s":172244,"h":"4a37809311","later":1},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":404400,"h":"bb16eb7e15"},{"p":"assets/models/kingmagmaw.glb","s":340536,"h":"3a92dafa80","later":1},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d","later":1},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a","later":1},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/models/wick.glb","s":250124,"h":"e58a3c5028","later":1},{"p":"assets/voice/lines.bin","s":8009243,"h":"5abc1a8806","later":1}], total = 4480204, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
+  var files = [{"p":"assets/models/baron.glb","s":247276,"h":"95c3298e96","later":1},{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/flicker.glb","s":172244,"h":"4a37809311","later":1},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/hoot.glb","s":450036,"h":"ecf2d6f721"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":1172544,"h":"7fcb0689cd"},{"p":"assets/models/kingmagmaw.glb","s":340536,"h":"3a92dafa80","later":1},{"p":"assets/models/mope.glb","s":186372,"h":"2b53b2257d","later":1},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/sulk.glb","s":186404,"h":"f9c20dbf7a","later":1},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/models/wick.glb","s":250124,"h":"e58a3c5028","later":1},{"p":"assets/voice/lines.bin","s":8009243,"h":"5abc1a8806","later":1}], total = 5698384, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
   var now = files.filter(function (f) { return !f.later; }), later = files.filter(function (f) { return f.later; });
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=dd7eb8b257';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=1f1972d8a1';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -902,7 +927,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=dd7eb8b257';
+    s.src = 'game.js?v=1f1972d8a1';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
