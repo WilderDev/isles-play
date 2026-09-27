@@ -648,7 +648,13 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
   <div style="text-align:center">✨ Loading the Emberlight Isles... ✨<div style="font-size:18px;margin-top:10px;opacity:.8">growing trees, puffing clouds, waking up Kindlings</div></div>
 </div>
 <script>(function () {
-  var files = [{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":275792,"h":"704ca90e6b"},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/voice/lines.bin","s":2417046,"h":"e844deabe6"}], total = 6768642, got = 0, A = window.__EMBER_ASSETS = {};
+  var files = [{"p":"assets/models/bubblotl.glb","s":369968,"h":"a96ed64437"},{"p":"assets/models/cottage.glb","s":381540,"h":"04d29a0772"},{"p":"assets/models/elderstag.glb","s":420592,"h":"bc538b2282"},{"p":"assets/models/emberkit.glb","s":360116,"h":"86051058db"},{"p":"assets/models/flarefox.glb","s":354740,"h":"c088459980"},{"p":"assets/models/glassnip.glb","s":266120,"h":"2bae35fe65"},{"p":"assets/models/grovefawn.glb","s":346324,"h":"519d2fb06e"},{"p":"assets/models/infernox.glb","s":455508,"h":"c0cee0cfd0"},{"p":"assets/models/keeper.glb","s":275792,"h":"704ca90e6b"},{"p":"assets/models/scenery.glb","s":106556,"h":"37368ce16f"},{"p":"assets/models/sprigling.glb","s":367004,"h":"ab6779a3c1"},{"p":"assets/models/tidalotl.glb","s":310308,"h":"c41eb8edf1"},{"p":"assets/models/tsunamotl.glb","s":337028,"h":"10cb4cf1c9"},{"p":"assets/voice/lines.bin","s":2417046,"h":"e844deabe6","later":1}], total = 4351596, got = 0, A = window.__EMBER_ASSETS = {}, L = window.__EMBER_LATER = {};
+  var now = files.filter(function (f) { return !f.later; }), later = files.filter(function (f) { return f.later; });
+  later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
+  // fetch game.js at the same time as the models instead of after them
+  var pre = document.createElement('link');
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=d590f330de';
+  document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
   bar.style.cssText = 'width:min(360px,70vw);height:14px;margin:18px auto 0;border:3px solid #1f2d4a;border-radius:999px;overflow:hidden;background:#fff8ef';
@@ -668,12 +674,13 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
     return fetch(f.p + '?v=' + f.h).then(function (r) {
       if (!r.ok) throw new Error(f.p + ': ' + r.status);
       return r.arrayBuffer();
-    }).then(function (b) { A[f.p] = new Uint8Array(b); got += f.s; show(); })
+    }).then(function (b) { A[f.p] = new Uint8Array(b); if (f.later) f.ok(A[f.p]); else { got += f.s; show(); } })
       .catch(function (e) { if (tries > 0) return new Promise(function (ok) { setTimeout(ok, 800); }).then(function () { return get(f, tries - 1); }); throw e; });
   }
-  Promise.all(files.map(function (f) { return get(f, 2); })).then(function () {
+  Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
+    later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=6a1e9e5c16';
+    s.src = 'game.js?v=d590f330de';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
