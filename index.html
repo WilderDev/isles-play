@@ -870,13 +870,11 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .sk-dream-card .sk-rows { text-align: left; }
 .sk-dream-card .sk-done { margin-top: 14px; }
 @media (max-width: 760px) { .sk-perks { flex-basis: 100%; } }
-<<<<<<< HEAD
 /* calm pop-ups (src/ui/notify.js): several stickers share one card; the badge gets a soft dot for quiet ones */
 .stk-pop-row { display: flex; gap: 10px; animation: stkSlap 0.7s cubic-bezier(.3, 1.7, .5, 1) both; }
 .stk-badge { position: relative; }
 .stk-badge.has-new::after { content: ''; position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: #ff5a5a; border: 2px solid var(--ink); animation: stkDot 1.6s ease-in-out infinite; }
 @keyframes stkDot { 50% { transform: scale(1.25); } }
-=======
 
 /* ---- controllers (src/ui/padicons.js): button pictures, and a big ring on whatever a press would pick ---- */
 .padb { display: inline-flex; align-items: center; justify-content: center; min-width: 1.7em; height: 1.7em; padding: 0 0.45em; margin: 0 4px; border-radius: 0.6em; background: #2d3445; color: #fff; font-weight: 800; font-size: 0.95em; line-height: 1; border: 2px solid var(--ink); box-shadow: 0 2px 0 var(--ink); vertical-align: middle; }
@@ -884,7 +882,6 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .t-keys .padb { font-size: 20px; margin: 0 2px; }
 body.pad button:focus, body.pad .focusable:focus, body.pad .slot:focus, body.pad input:focus { outline: 5px solid #ffd36b; outline-offset: 3px; }
 body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
->>>>>>> origin/main
 </style>
 </head>
 <body>
