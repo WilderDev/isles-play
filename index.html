@@ -126,16 +126,68 @@ kbd { font-family: var(--font); font-size: 11px; background: rgba(255, 255, 255,
 .lr-dots i.on { background: radial-gradient(circle, #fff6c0, #ffc93a); transform: scale(1.2); box-shadow: 0 0 12px #ffd86a; }
 .bond-row { font-weight: 700; margin: 2px 0 4px; }
 .form-chip { display: inline-block; padding: 1px 10px; border-radius: 999px; background: #e3f1ff; border: 2px solid var(--ink); font-size: 14px; }
-.battle-ui.teamup .b-menu.tu-menu { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-.tu-move { position: relative; overflow: hidden; min-width: 150px; }
-.tu-move .tu-cd { position: absolute; left: 0; bottom: 0; width: 100%; height: 0; background: rgba(31, 45, 74, .45); pointer-events: none; }
-.tu-move.cooling { filter: saturate(.5); }
+/* ---------- team-up battles (real time): the view stays clear, buttons sit bottom right ---------- */
+body.tu-on #hud .hud-tr, body.tu-on #hud .buddybar, body.tu-on #hud .hint, body.tu-on #hud .crosshair, body.tu-on #touch .t-btns, body.tu-on #touch .t-top { display: none !important; }
+.battle-ui.teamup .b-card { width: 250px; padding: 8px 12px; }
+.battle-ui.teamup .b-foe { left: 16px; top: 14px; }
+.battle-ui.teamup .b-ally { right: 16px; top: 14px; bottom: auto; }
+.battle-ui.teamup .b-name { font-size: 18px; }
+.battle-ui.teamup .b-hp { height: 16px; }
+.battle-ui.tu-big .b-foe { left: 50%; transform: translateX(-50%); width: min(460px, calc(100% - 300px)); border-color: #6a3aa8; box-shadow: 0 0 0 3px #d9b8ff, var(--shadow); }
+.battle-ui.tu-big .b-foe .b-hp { height: 22px; }
+.battle-ui.tu-big .b-ally { width: 200px; }
+.battle-ui.teamup.tu-dizzy .b-foe { animation: tuWobble .5s ease-in-out infinite alternate; }
+.battle-ui.tu-big.tu-dizzy .b-foe { animation: none; }
+@keyframes tuWobble { from { rotate: -2deg; } to { rotate: 2deg; } }
+.battle-ui.teamup .b-msg { left: 50%; right: auto; top: 118px; bottom: auto; transform: translateX(-50%); min-height: 0; padding: 8px 20px; border-width: 3px; border-radius: 999px; font-size: 20px; max-width: min(640px, calc(100% - 40px)); width: max-content; text-align: center; justify-content: center; }
+.battle-ui.teamup .b-msg span { max-width: none; }
+.battle-ui.teamup .b-msg.tu-tip-pop { animation: tuTip .35s ease-out; }
+@keyframes tuTip { from { transform: translateX(-50%) scale(1.15); } to { transform: translateX(-50%) scale(1); } }
+.battle-ui.teamup .b-menu.tu-menu { right: 16px; bottom: 16px; max-width: none; display: grid; grid-template-columns: auto auto; grid-template-areas: "side team" "side moves"; gap: 8px; align-items: end; }
+.tu-side { grid-area: side; display: flex; flex-direction: column; gap: 8px; }
+.tu-moves { grid-area: moves; display: grid; grid-template-columns: repeat(2, 176px); gap: 8px; }
+.tu-move { position: relative; overflow: hidden; min-width: 0 !important; min-height: 58px; }
+.tu-move .tu-cd, .tu-snack .tu-cd { position: absolute; left: 0; bottom: 0; width: 100%; height: 0; background: rgba(31, 45, 74, .5); pointer-events: none; }
+.tu-move.cooling { filter: saturate(.45) brightness(.92); }
 .tu-move kbd { position: absolute; right: 6px; top: 4px; }
-.tu-team { position: relative; overflow: hidden; background: #fff; min-width: 170px; }
+.tu-menu.dizzy .tu-move:not(.cooling) { animation: tuReady .35s ease-in-out infinite alternate; box-shadow: 0 4px 0 var(--ink), 0 0 16px #ffe066; }
+.tu-snack, .tu-run { position: relative; overflow: hidden; flex-direction: column; gap: 0; width: 70px; padding: 6px 4px; font-size: 26px; line-height: 1; }
+.tu-snack small, .tu-run small { font-size: 12px; margin-top: 2px; }
+.tu-snack kbd { position: absolute; right: 3px; top: 2px; font-size: 10px; }
+.tu-snack { background: linear-gradient(180deg, #fff4b0, #ffcc33); }
+.tu-snack:disabled { filter: grayscale(.6); opacity: .7; cursor: default; }
+.tu-snack.none { display: none; }
+.tu-run { background: linear-gradient(180deg, #e8e8f0, #b8b8c8); font-size: 22px; }
+.tu-team { grid-area: team; position: relative; overflow: hidden; background: #fff; justify-content: center; font-size: 22px; min-height: 54px; isolation: isolate; }
 .tu-team .tu-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(90deg, #ffe08a, #ffb347); z-index: -1; transition: width .15s; }
-.tu-team { isolation: isolate; }
-.tu-team.ready { animation: tuReady .6s ease-in-out infinite alternate; box-shadow: 0 0 0 3px #fff, 0 0 18px #ffc93a; }
+.tu-team kbd { position: absolute; right: 8px; top: 50%; translate: 0 -50%; }
+.tu-team.ready { animation: tuReady .5s ease-in-out infinite alternate; box-shadow: 0 0 0 3px #fff, 0 0 22px #ffc93a; }
+.tu-team.mashing { animation: tuMash .12s linear infinite alternate; background: linear-gradient(90deg, #ffd84a, #ff8a3a); color: #fff; text-shadow: 0 2px 0 var(--ink); }
 @keyframes tuReady { from { transform: scale(1); } to { transform: scale(1.06); } }
+@keyframes tuMash { from { transform: scale(1) rotate(-1deg); } to { transform: scale(1.08) rotate(1deg); } }
+.tu-moves.few { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 200px; }
+.tu-menu.tu-simple { grid-template-areas: "side moves"; }
+.tu-menu.tu-simple .tu-move { min-height: 76px; font-size: 22px; }
+.tu-new { animation: tuNew .6s ease-in-out 5 alternate; box-shadow: 0 0 0 4px #fff, 0 0 26px #ffe066 !important; }
+@keyframes tuNew { from { transform: scale(1); } to { transform: scale(1.12); } }
+.tu-combo { position: absolute; left: 24px; top: 42%; font-size: 26px; font-weight: 700; color: #fff; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); opacity: 0; transition: opacity .3s; pointer-events: none; rotate: -6deg; transform-origin: left center; }
+.tu-combo b { font-size: 54px; color: hsl(calc(45deg - var(--h, 0deg)) 100% 60%); }
+.tu-combo.on { opacity: 1; }
+.tu-combo.bump { animation: tuBump .3s ease-out; }
+@keyframes tuBump { from { scale: 1.45; } to { scale: 1; } }
+@media (max-width: 760px), (max-height: 520px) {
+  .battle-ui.teamup .b-card { width: 190px; padding: 6px 10px; }
+  .battle-ui.teamup .b-name { font-size: 15px; }
+  .battle-ui.teamup .b-types, .battle-ui.teamup .b-xp { display: none; }
+  .battle-ui.teamup .b-msg { top: 84px; font-size: 16px; }
+  .tu-moves { grid-template-columns: repeat(2, 138px); }
+  .tu-moves.few { grid-template-columns: none; grid-auto-columns: 150px; }
+  .tu-move .mv-name { font-size: 15px; }
+  .tu-move .mv-info { display: none; }
+  .tu-move { min-height: 48px; padding: 6px 10px; }
+  .tu-team { font-size: 18px; min-height: 46px; }
+  .tu-snack, .tu-run { width: 58px; font-size: 22px; }
+}
 .buddybar { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 10px; pointer-events: none; }
 .bb-name { position: absolute; left: 0; bottom: calc(100% + 4px); font-weight: 700; font-size: 17px; color: #fff; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; white-space: nowrap; }
 .bb-name small { font-size: 13px; }
@@ -955,7 +1007,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=842f8c8c9e';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=02fde56f67';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -982,7 +1034,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=842f8c8c9e';
+    s.src = 'game.js?v=02fde56f67';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
