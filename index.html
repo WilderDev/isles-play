@@ -493,8 +493,12 @@ body:not(.touch-mode):not(.at-home) .hud-tr .voice-btn, body:not(.touch-mode) .h
 .wd-opt:hover { transform: translateY(-2px); }
 .wd-opt.on { background: #fff4c2; box-shadow: 0 0 0 4px #fff, 0 0 0 7px var(--pink2, #ff6fa8); }
 .wd-opt.locked { opacity: 0.55; filter: grayscale(0.6); }
-.newgame.side .wd-sw.swatches { margin: 2px 0 4px; gap: 8px; }
-.newgame.side .wd-sw .swatch { width: 40px; height: 40px; }
+/* dress-up colour rows (any layout): smaller circles, room for the selection ring, labels never covered */
+.wd-sw.swatches, .newgame.side .wd-sw.swatches { margin: 4px 0 14px; gap: 12px; padding: 6px 4px; }
+.wd-sw .swatch, .newgame.side .wd-sw .swatch { width: 42px; height: 42px; border-width: 3px; }
+.wd-sw .swatch.on { transform: none; box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--pink2, #ff6fa8); }
+.wd-body .wd-label { margin: 14px 0 2px; position: relative; z-index: 1; }
+
 .wd-note { min-height: 20px; font-weight: 700; font-size: 14px; color: var(--ink2); margin-top: 6px; }
 .wd-foot { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
 @media (max-width: 700px), (max-aspect-ratio: 11/10) {
