@@ -870,6 +870,32 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .sk-dream-card .sk-rows { text-align: left; }
 .sk-dream-card .sk-done { margin-top: 14px; }
 @media (max-width: 760px) { .sk-perks { flex-basis: 100%; } }
+
+/* ---------- Keeper Wardrobe (src/progress/wardrobe.js) ---------- */
+.wd-tip { margin: 2px 0 8px; font-size: 15px; }
+.wd-tip img, .wd-cost img { width: 20px; height: 20px; vertical-align: middle; }
+.wd-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; flex-wrap: wrap; }
+.wd-slot { width: 140px; font-size: 16px; }
+.wd-items { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+.wd-item { position: relative; width: 92px; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 4px; border: 3px solid var(--ink); border-radius: 16px; background: #fff; font-family: var(--font); color: var(--ink); cursor: pointer; }
+.wd-item small { font-size: 11px; font-weight: 700; text-align: center; line-height: 1.1; }
+.wd-ic { font-size: 28px; line-height: 1.1; }
+.wd-sw { width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--ink); box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.15); }
+.wd-item.on { background: #ffe066; box-shadow: 0 0 0 3px #fff inset; }
+.wd-item.locked, .wd-item.need { opacity: 0.55; }
+.wd-item.make { background: #fff6c8; animation: skGlow 1.4s infinite alternate; box-shadow: 0 0 0 3px #ffe066; }
+.wd-item i { position: absolute; top: -10px; right: -6px; font-style: normal; font-weight: 700; font-size: 12px; background: #ffe066; border: 2px solid var(--ink); border-radius: 999px; padding: 0 7px; }
+.wd-costs { display: flex; gap: 4px; font-size: 12px; font-weight: 700; }
+.wd-cost { display: flex; align-items: center; gap: 1px; }
+
+/* ---------- The ramp: one NEW! card per feature (src/progress/unlocks.js) ---------- */
+.unl-card { position: absolute; left: 50%; top: 20%; transform: translateX(-50%); width: min(560px, 92vw); display: flex; align-items: center; gap: 14px; background: var(--cream); border: 4px solid var(--ink); border-radius: 24px; padding: 14px 20px 14px 14px; box-shadow: var(--shadow); animation: skIn 0.55s cubic-bezier(.3, 1.6, .5, 1) both; pointer-events: none; z-index: 41; }
+.unl-card.out { animation: skOut 0.4s ease-in forwards; }
+.unl-new { position: absolute; top: -16px; left: 18px; background: #ff7a2e; color: #fff; font-weight: 700; font-size: 16px; border: 3px solid var(--ink); border-radius: 999px; padding: 1px 12px; }
+.unl-icon { width: 76px; height: 76px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 44px; background: #ffe066; border: 3px solid var(--ink); }
+.unl-txt b { display: block; font-size: 26px; }
+.unl-txt span { font-size: 17px; font-weight: 600; color: var(--ink2); }
+.stk-pop-name small { font-size: 20px; color: #ffe066; }
 /* calm pop-ups (src/ui/notify.js): several stickers share one card; the badge gets a soft dot for quiet ones */
 .stk-pop-row { display: flex; gap: 10px; animation: stkSlap 0.7s cubic-bezier(.3, 1.7, .5, 1) both; }
 .stk-badge { position: relative; }
@@ -929,7 +955,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=e4f667a98b';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=842f8c8c9e';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -956,7 +982,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=e4f667a98b';
+    s.src = 'game.js?v=842f8c8c9e';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
