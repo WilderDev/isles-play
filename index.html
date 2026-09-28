@@ -263,12 +263,32 @@ body.tu-on #hud .hud-tr, body.tu-on #hud .buddybar, body.tu-on #hud .hint, body.
 #overlay { position: fixed; inset: 0; pointer-events: none; z-index: 20; }
 .flash { position: absolute; inset: 0; opacity: 0; }
 .fade { position: absolute; inset: 0; background: #fff8ef; opacity: 0; transition: opacity 0.5s; }
+/* bedtime (rhythm.js): the screen goes to a deep night sky full of twinkling stars, not bright white */
+.fade.night { background: radial-gradient(ellipse at 50% 18%, #2c3f86 0%, #141d4a 45%, #070b22 100%); }
+.fade.night::before, .fade.night::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(3px 3px at 8% 14%, #fff, transparent), radial-gradient(2px 2px at 18% 42%, #cfe3ff, transparent), radial-gradient(3.5px 3.5px at 27% 8%, #ffe9a0, transparent), radial-gradient(2px 2px at 36% 64%, #fff, transparent), radial-gradient(3px 3px at 47% 26%, #fff, transparent), radial-gradient(2px 2px at 58% 76%, #cfe3ff, transparent), radial-gradient(3.5px 3.5px at 66% 12%, #fff, transparent), radial-gradient(2.5px 2.5px at 74% 48%, #ffe9a0, transparent), radial-gradient(3px 3px at 85% 22%, #fff, transparent), radial-gradient(2px 2px at 93% 60%, #fff, transparent), radial-gradient(2.5px 2.5px at 12% 84%, #cfe3ff, transparent), radial-gradient(3px 3px at 88% 88%, #fff, transparent), radial-gradient(2px 2px at 4% 56%, #fff, transparent), radial-gradient(2.5px 2.5px at 53% 90%, #ffe9a0, transparent), radial-gradient(2px 2px at 40% 4%, #fff, transparent), radial-gradient(2.5px 2.5px at 97% 6%, #cfe3ff, transparent); }
+.fade.night::after { transform: translate(4.5%, 7%) scale(-1, 1); animation: twinkle 2.6s ease-in-out infinite alternate; }
+.fade.night::before { animation: twinkle 3.4s ease-in-out infinite alternate-reverse; }
+@keyframes twinkle { from { opacity: 0.45; } to { opacity: 1; } }
 .bigtext { position: absolute; left: 50%; top: 30%; transform: translate(-50%, -50%); text-align: center; animation: bigIn 0.6s cubic-bezier(.3, 1.6, .5, 1); }
 .bigtext h1 { margin: 0; font-size: 64px; font-weight: 700; color: #fff; letter-spacing: 2px; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; text-shadow: 0 6px 0 var(--ink); }
 .bigtext.glimmer h1 { background: linear-gradient(180deg, #fff6b0, #ffc400); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 5px 0 var(--ink)); -webkit-text-stroke: 3px var(--ink); }
 .bigtext p { margin: 8px 0 0; font-size: 26px; font-weight: 700; color: #fff; text-shadow: 0 3px 0 var(--ink), 0 0 6px var(--ink); }
 @keyframes bigIn { from { transform: translate(-50%, -50%) scale(0.2) rotate(-8deg); opacity: 0; } }
 .bigpop { position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%); font-size: 46px; font-weight: 700; color: #fff; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; animation: popper 1.1s forwards; text-shadow: 0 5px 0 var(--ink); white-space: nowrap; }
+/* "You got an item!" (ui.itemGet): the item big in a glowing circle, rays turning behind it */
+.itemget { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 42%, rgba(20, 14, 40, 0.35), rgba(20, 14, 40, 0.7)); animation: igFade 0.3s ease-out; pointer-events: none; }
+.itemget.out { opacity: 0; transition: opacity 0.3s; }
+.itemget .ig-rays { position: absolute; left: 50%; top: 42%; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%; background: repeating-conic-gradient(rgba(255, 226, 120, 0.28) 0 10deg, rgba(255, 226, 120, 0) 10deg 24deg); -webkit-mask: radial-gradient(circle, #000 25%, transparent 70%); mask: radial-gradient(circle, #000 25%, transparent 70%); animation: igSpin 9s linear infinite; }
+.itemget .ig-ring { position: relative; width: 220px; height: 220px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 38%, #fffbe6, var(--ig) 72%); border: 8px solid var(--ink); box-shadow: 0 0 0 6px #fff, 0 0 60px 18px var(--ig), 0 10px 0 6px var(--ink); animation: igPop 0.6s cubic-bezier(.3, 1.7, .5, 1); margin-top: -4vh; }
+.itemget .ig-ring img { width: 70%; height: 70%; object-fit: contain; image-rendering: auto; filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.35)); animation: igBob 1.6s ease-in-out infinite; }
+.itemget .ig-ring span { font-size: 120px; line-height: 1; filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.35)); animation: igBob 1.6s ease-in-out infinite; }
+.itemget h1 { position: relative; margin: 26px 0 0; font-size: 56px; font-weight: 700; color: #fff; letter-spacing: 2px; -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; text-shadow: 0 6px 0 var(--ink); text-align: center; }
+.itemget p { position: relative; margin: 8px 0 0; font-size: 26px; font-weight: 700; color: #fff; text-shadow: 0 3px 0 var(--ink), 0 0 6px var(--ink); text-align: center; }
+@media (max-width: 700px) { .itemget .ig-ring { width: 160px; height: 160px; } .itemget h1 { font-size: 38px; } .itemget p { font-size: 20px; } .itemget .ig-ring span { font-size: 86px; } }
+@keyframes igPop { from { transform: scale(0.1) rotate(-20deg); opacity: 0; } }
+@keyframes igSpin { to { transform: rotate(360deg); } }
+@keyframes igBob { 50% { transform: translateY(-8px) scale(1.04); } }
+@keyframes igFade { from { opacity: 0; } }
 @keyframes popper { 0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0; } 15% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; } 30% { transform: translate(-50%, -50%) scale(1); } 80% { opacity: 1; } 100% { transform: translate(-50%, -70%) scale(1); opacity: 0; } }
 .evo-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(40, 20, 80, 0) 30%, rgba(20, 10, 50, 0.75) 100%); opacity: 0; transition: opacity 0.8s; }
 .evo-overlay.on { opacity: 1; }
@@ -1015,6 +1035,10 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .tab.on { background: #fffaf3; }
 .pause-grid .pause-tiles { grid-template-columns: repeat(2, 1fr); }
 .pause-grid .pause-more { grid-template-columns: repeat(3, 1fr); }
+/* five tiles: three across the top, Settings and Save & quit side by side underneath */
+.pause-grid .pause-tiles.three { grid-template-columns: repeat(6, 1fr); }
+.pause-tiles.three > * { grid-column: span 2; }
+.pause-tiles.three > :nth-last-child(-n+2) { grid-column: span 3; }
 .pause-more .pt-ico { font-size: 30px; }
 .pause-more .pt-lbl { font-size: 14px; }
 .pause-morebtn { align-self: center; }
@@ -1059,7 +1083,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=d55e10674b';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=09f0cb7e21';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -1086,7 +1110,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=d55e10674b';
+    s.src = 'game.js?v=09f0cb7e21';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
