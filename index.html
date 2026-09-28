@@ -268,13 +268,13 @@ body.tu-on #hud .hud-tr, body.tu-on #hud .buddybar, body.tu-on #hud .hint, body.
 @keyframes popper { 0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0; } 15% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; } 30% { transform: translate(-50%, -50%) scale(1); } 80% { opacity: 1; } 100% { transform: translate(-50%, -70%) scale(1); opacity: 0; } }
 .evo-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(40, 20, 80, 0) 30%, rgba(20, 10, 50, 0.75) 100%); opacity: 0; transition: opacity 0.8s; }
 .evo-overlay.on { opacity: 1; }
-.cine-text { position: absolute; left: 50%; bottom: 12%; transform: translateX(-50%); background: rgba(255, 248, 239, 0.96); border: 4px solid var(--ink); border-radius: 26px; padding: 18px 34px; font-size: 30px; font-weight: 700; text-align: center; box-shadow: var(--shadow); animation: toastIn 0.4s; max-width: 90vw; }
+.cine-text { position: absolute; left: 50%; bottom: 12%; transform: translateX(-50%); background: rgba(255, 248, 239, 0.96); border: 4px solid var(--ink); border-radius: 26px; padding: 18px 34px; font-size: 30px; font-weight: 700; text-align: center; box-shadow: var(--shadow); animation: dialogIn 0.4s; max-width: 90vw; }
 .cine-text.celebrate { background: linear-gradient(180deg, #fff6c0, #ffd84a); font-size: 34px; }
 .battle-intro { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, #ffffff 0 40px, #dff0ff 40px 80px); animation: bIntro 0.7s forwards; }
 @keyframes bIntro { 0% { clip-path: circle(0% at 50% 50%); } 45% { clip-path: circle(80% at 50% 50%); opacity: 1; } 100% { clip-path: circle(80% at 50% 50%); opacity: 0; } }
 
 /* ---------- dialog ---------- */
-.dialog { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); width: min(860px, 94vw); min-height: 130px; padding: 18px 26px 18px 128px; background: var(--cream); border: 4px solid var(--ink); border-radius: 28px; box-shadow: var(--shadow); font-size: 22px; font-weight: 600; line-height: 1.35; animation: toastIn 0.3s; cursor: pointer; }
+.dialog { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); width: min(860px, 94vw); min-height: 130px; padding: 18px 26px 18px 128px; background: var(--cream); border: 4px solid var(--ink); border-radius: 28px; box-shadow: var(--shadow); font-size: 22px; font-weight: 600; line-height: 1.35; animation: dialogIn 0.3s; cursor: pointer; }
 .dialog .who { position: absolute; left: 22px; top: -20px; background: linear-gradient(180deg, #ffc47a, var(--pink2)); color: #fff; border: 3px solid var(--ink); border-radius: 999px; padding: 3px 16px; font-size: 17px; font-weight: 700; text-shadow: 0 1px 0 var(--ink); }
 .dialog .face { position: absolute; left: 18px; top: 22px; width: 94px; height: 94px; border-radius: 24px; border: 3px solid var(--ink); background: radial-gradient(circle, #fff, #ffe7c9); display: grid; place-items: center; font-size: 58px; overflow: hidden; }
 .dialog .face img { width: 100%; height: 100%; object-fit: contain; }
@@ -886,6 +886,9 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .menu-back, .dialog { z-index: 10; }
 
 /* ---- game feel (audio lane): bouncier pop-ins ---- */
+/* the dialog centres itself with translateX(-50%), so its pop-in must keep that (toastIn replaced the
+   whole transform and the box slid in from the right) */
+@keyframes dialogIn { 0% { transform: translateX(-50%) translateY(20px) scale(0.85); opacity: 0; } 60% { transform: translateX(-50%) translateY(-2px) scale(1.03); opacity: 1; } 100% { transform: translateX(-50%); } }
 @keyframes toastIn { 0% { transform: translateY(-20px) scale(0.6); opacity: 0; } 60% { transform: translateY(2px) scale(1.08); opacity: 1; } 100% { transform: none; } }
 @keyframes pickIn { 0% { transform: translateX(40px) scale(0.6); opacity: 0; } 60% { transform: translateX(-4px) scale(1.12); opacity: 1; } 100% { transform: none; } }
 .pickup.pkbump img { animation: pkbump 0.35s cubic-bezier(.3, 1.8, .5, 1); }
@@ -1014,7 +1017,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=44c1b13752';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=5fc2b91958';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -1041,7 +1044,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=44c1b13752';
+    s.src = 'game.js?v=5fc2b91958';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
