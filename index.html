@@ -875,6 +875,38 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .stk-badge { position: relative; }
 .stk-badge.has-new::after { content: ''; position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: #ff5a5a; border: 2px solid var(--ink); animation: stkDot 1.6s ease-in-out infinite; }
 @keyframes stkDot { 50% { transform: scale(1.25); } }
+/* ---------- kid-friendly UI: a picture for every goal, big tiles, big tabs ---------- */
+.q-goal { align-items: center; }
+.q-ico { flex: none; font-size: 26px; line-height: 1; filter: drop-shadow(0 2px 0 rgba(31, 45, 74, 0.25)); }
+.tab { display: inline-flex; align-items: center; gap: 6px; }
+.tab-ico { font-size: 26px; line-height: 1; }
+.menu-body { background: #fffaf3; }
+.inv-grid.items { grid-template-columns: repeat(7, 76px); gap: 10px; }
+.inv-grid.items .slot { width: 76px; height: 76px; border-radius: 18px; }
+.inv-grid.items .slot img { width: 58px; height: 58px; }
+.inv-grid.items .slot .cnt { font-size: 19px; right: 6px; bottom: 2px; }
+.pause-grid { width: min(470px, 94vw); gap: 12px; padding: 22px 24px; }
+.pause-goal { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 3px solid var(--ink); border-radius: 18px; background: linear-gradient(180deg, #fff6c9, #ffe27a); font-family: var(--font); font-weight: 700; font-size: 17px; color: var(--ink); text-align: left; cursor: pointer; box-shadow: 0 3px 0 var(--ink); }
+.pause-goal:hover { filter: brightness(1.04); }
+.pg-ico { font-size: 38px; line-height: 1; flex: none; }
+.pg-txt { flex: 1; line-height: 1.2; }
+.pg-txt small, .legend-goal small { display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #b06a00; }
+.pg-say { font-size: 24px; flex: none; }
+.pause-keep { font-size: 24px; padding: 14px; }
+.pause-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.pause-tile { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 4px 10px; border-radius: 20px; }
+.pt-ico { font-size: 40px; line-height: 1; }
+.pt-lbl { font-size: 16px; }
+.pause-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.legend-goal { display: flex; gap: 10px; align-items: center; padding: 8px 12px; margin-bottom: 10px !important; border: 3px solid var(--ink); border-radius: 16px; background: linear-gradient(180deg, #fff6c9, #ffe27a); font-size: 16px; line-height: 1.2; }
+.legend-goal > span { font-size: 32px; line-height: 1; }
+@media (max-width: 620px) { .inv-grid.items { grid-template-columns: repeat(4, 72px); } .inv-grid.items .slot { width: 72px; height: 72px; } .pt-ico { font-size: 34px; } }
+.tab.on { background: #fffaf3; }
+.pause-grid .pause-tiles { grid-template-columns: repeat(2, 1fr); }
+.pause-grid .pause-more { grid-template-columns: repeat(3, 1fr); }
+.pause-more .pt-ico { font-size: 30px; }
+.pause-more .pt-lbl { font-size: 14px; }
+.pause-morebtn { align-self: center; }
 
 /* ---- controllers (src/ui/padicons.js): button pictures, and a big ring on whatever a press would pick ---- */
 .padb { display: inline-flex; align-items: center; justify-content: center; min-width: 1.7em; height: 1.7em; padding: 0 0.45em; margin: 0 4px; border-radius: 0.6em; background: #2d3445; color: #fff; font-weight: 800; font-size: 0.95em; line-height: 1; border: 2px solid var(--ink); box-shadow: 0 2px 0 var(--ink); vertical-align: middle; }
@@ -897,7 +929,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=2399a36f1b';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=777f2ec934';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -924,7 +956,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=2399a36f1b';
+    s.src = 'game.js?v=777f2ec934';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
