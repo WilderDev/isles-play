@@ -357,6 +357,13 @@ body.tu-on #hud .hud-tr, body.tu-on #hud .buddybar, body.tu-on #hud .hint, body.
 .pause-list h2 { margin: 0 0 6px; text-align: center; font-size: 34px; }
 .ferry-tip { margin: 0; font-size: 14px; font-weight: 600; color: var(--ink2); text-align: center; }
 .pause-who { text-align: center; font-weight: 700; color: var(--ink2); margin: -8px 0 4px; }
+.pause-idle { text-align: center; font-weight: 800; color: var(--ink2); background: var(--cream2); border-radius: 12px; padding: 8px 10px; margin: -4px 0 2px; }
+.pause-quick { display: flex; gap: 8px; }
+.pause-quick .btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 24px; padding: 8px 4px; }
+.pause-quick .btn small { font-size: 12px; font-weight: 800; white-space: nowrap; }
+/* with a mouse, the camera holds the pointer, so the round buttons over the map can't be clicked:
+   they live in the pause menu instead (H / G keys too). Touch screens and Hearth Isle keep them. */
+body:not(.touch-mode):not(.at-home) .hud-tr .voice-btn, body:not(.touch-mode) .hud-tr .home-btn { display: none; }
 .settings-menu { height: auto; max-height: min(700px, 92vh); width: min(720px, 96vw); }
 .set-h { margin: 14px 0 2px; font-size: 20px; color: var(--ink); background: linear-gradient(90deg, #b8e8ff, transparent); border-radius: 10px; padding: 4px 10px; }
 .set-h:first-child { margin-top: 0; }
@@ -1007,7 +1014,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   later.forEach(function (f) { L[f.p] = new Promise(function (ok, no) { f.ok = ok; f.no = no; }); L[f.p].catch(function () {}); });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=f58b3a471e';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=44c1b13752';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -1034,7 +1041,7 @@ body.pad .b-btn kbd, body.pad .bb-lantern kbd { display: none; }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     later.forEach(function (f) { get(f, 2).catch(f.no); });
     var s = document.createElement('script');
-    s.src = 'game.js?v=f58b3a471e';
+    s.src = 'game.js?v=44c1b13752';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
