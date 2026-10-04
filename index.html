@@ -862,6 +862,23 @@ body:has(.hb-share:not(.hidden)) .lm-card, body:has(.hb-journal:not(.hidden)) .l
 .together .tg-hero { opacity: .65; }
 .together .tg-hero.on { opacity: 1; outline: 3px solid #2ecc71; outline-offset: 1px; }
 .together .tg-name { margin-top: 10px; width: 220px; text-align: center; font-size: 22px; font-weight: 700; }
+.newgame > .together { max-height: calc(100dvh - 20px); overflow-y: auto; box-sizing: border-box; width: min(620px, 96vw); padding: 18px 22px; }
+.newgame > .together h2 { font-size: 28px; margin-bottom: 8px; }
+.together .tg-hero { display: flex; align-items: center; gap: 6px; }
+.together .tg-hero img { width: 40px; height: 40px; object-fit: contain; }
+.tg-characters, .tg-buddies { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 10px auto; }
+.tg-character, .tg-buddy { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 78px; padding: 5px; border: 2px solid #b5cfc4; border-radius: 14px; background: #f5faf6; color: var(--ink); font: 700 14px var(--font); cursor: pointer; }
+.tg-character img { width: 64px; height: 64px; object-fit: contain; }
+.tg-buddy img { width: 46px; height: 46px; object-fit: contain; }
+.tg-character.on, .tg-buddy.on { border-color: #167e68; background: #d7f3de; box-shadow: inset 0 0 0 1px #167e68; }
+.tg-character:focus-visible, .tg-buddy:focus-visible { outline: 3px solid #dd9b27; outline-offset: 2px; }
+@media (max-width: 600px), (max-height: 600px) {
+  .newgame > .together { padding: 12px 14px; }
+  .newgame > .together h2 { font-size: 23px; }
+  .tg-character img { width: 46px; height: 46px; }
+  .tg-characters, .tg-buddies { gap: 6px; }
+  .tg-character, .tg-buddy { min-height: 66px; font-size: 12px; }
+}
 
 /* ---------------- Minigames (src/minigames/) ---------------- */
 .mg-hud { position: absolute; left: 50%; top: 86px; transform: translateX(-50%) translateY(-12px); display: flex; gap: 14px; align-items: center; background: var(--cream); border: 3px solid var(--ink); border-radius: 999px; padding: 6px 20px; font-size: 26px; font-weight: 700; color: var(--ink); box-shadow: var(--shadow); opacity: 0; transition: opacity .3s, transform .3s; pointer-events: none; }
@@ -1520,7 +1537,7 @@ body:has(.menu-back, .dialog, .recap) .treasure-find { visibility: hidden; }
   });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=c73b329161';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=312ad6b35b';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -1546,7 +1563,7 @@ body:has(.menu-back, .dialog, .recap) .treasure-find { visibility: hidden; }
   }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     var s = document.createElement('script');
-    s.src = 'game.js?v=c73b329161';
+    s.src = 'game.js?v=312ad6b35b';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
