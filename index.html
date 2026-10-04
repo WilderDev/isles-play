@@ -1352,6 +1352,7 @@ body:has(#overlay .bigtext, #overlay .cine-text, #overlay .itemget, .recap, .sk-
 }
 @media (max-width: 600px) and (min-height: 561px) {
   .touch-mode .buddybar { bottom: 280px; max-width: calc(100vw - 24px); }
+  #touch .t-stick { left: calc(16px + env(safe-area-inset-left)); bottom: calc(28px + env(safe-area-inset-bottom)); width: 120px; height: 120px; }
 }
 .hud-guide .teach { position: relative; inset: auto; width: 100%; max-width: none; transform: none; display: none; flex-wrap: wrap; white-space: normal; gap: 6px 9px; padding: 9px 12px; font-size: 14px; border-radius: 14px; }
 .hud-guide .teach.show:not(.done) { display: flex; opacity: 1; transform: none; }
