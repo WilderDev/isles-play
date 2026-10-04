@@ -645,7 +645,7 @@ body:not(.touch-mode):not(.at-home) .hud-tr .voice-btn, body:not(.touch-mode) .h
   .inv-grid .slot img { width: 30px; height: 30px; }
 }
 
-/* =====================================================================================
+/* ==============================================================================
    Cozy aesthetic tokens (Hearth Isle look) — warm paper cards, soft serif display type
    ===================================================================================== */
 :root {
@@ -1325,6 +1325,93 @@ body.pad .hb kbd { display: none; }
   .title-crest { display: none; }
 }
 
+/* The first companion is a live encounter, with room for the creature to be the star. */
+#ui:has(.first-friend, .friend-welcome) #hud { visibility: hidden; }
+.first-friend { display: block; padding: 0; background: linear-gradient(90deg, transparent 25%, #173b4010 50%, #173b4066), linear-gradient(0deg, #173b4080, transparent 26%); }
+.ff-heading { position: absolute; top: 30px; left: 5%; right: 5%; text-align: center; color: #fff9e6; text-shadow: 0 2px 8px #153b3f; }
+.ff-heading > span { font: 800 12px 'Nunito', sans-serif; letter-spacing: .2em; color: #ffe2a4; }
+.ff-heading h2 { font-size: clamp(20px, 2.4vw, 32px); font-weight: 500; margin: 8px 0 0; }
+.ff-info { position: absolute; right: 6vw; top: 49%; transform: translateY(-50%); width: min(340px, 35vw); color: #264d49; padding: 26px; border: 1px solid #ffedba; border-radius: 6px 24px 24px 24px; background: #f8f1de; box-shadow: 0 15px 50px #153b3f33; }
+.ff-eyebrow { font: 800 11px 'Nunito', sans-serif; letter-spacing: .17em; color: #836e42; }
+.ff-info h3 { font-size: 40px; font-weight: 500; margin: 8px 0 0; line-height: 1.1; }
+.ff-personality { font: 800 15px 'Nunito', sans-serif; margin: 8px 0 23px; color: #6c796a; }
+.ff-power { display: flex; align-items: center; gap: 12px; border-top: 1px solid #ddd1b3; padding: 17px 0 20px; }
+.ff-power-icon { display: grid; place-items: center; width: 48px; height: 48px; flex: 0 0 48px; border-radius: 14px; background: #fff9eb; font-size: 28px; }
+.ff-power b { display: block; font: 900 16px 'Nunito', sans-serif; }
+.ff-promise { display: block; margin-top: 4px; font: 700 13px 'Nunito', sans-serif; color: #6c796a; }
+.ff-go { width: 100%; display: flex; justify-content: center; gap: 8px; align-items: center; padding: 13px 8px; border: 1px solid #bd7a2f; background: #ffc76d; color: #324c39; box-shadow: 0 3px 0 #b57a3d; text-shadow: none; font-size: 19px; }
+.ff-go:focus-visible, .ff-option:focus-visible, .ff-photo:focus-visible { outline: 3px solid #ffdb7e; outline-offset: 5px; }
+.ff-foot { font: 700 12px 'Nunito', sans-serif; text-align: center; color: #78816d; margin: 15px 0 0; }
+.ff-options { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; }
+.ff-option { width: 135px; height: 110px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #ecdfbfa6; border-radius: 18px; background: #1f494ad9; color: #fff7dd; cursor: pointer; transition: background .18s, transform .18s, border-color .18s; }
+.ff-option img { height: 70px; width: 82px; object-fit: contain; }
+.ff-option > span { font-size: 16px; }
+.ff-option i { position: absolute; top: 7px; right: 10px; color: #ffc76d; font-style: normal; opacity: 0; }
+.ff-option.on { border: 2px solid var(--friend-color); background: #f8f1de; color: #264d49; transform: translateY(-5px); box-shadow: 0 4px 22px #0e34393b; }
+.ff-option.on i { opacity: 1; }
+.ff-option:hover { border-color: #ffe0a0; }
+.friend-welcome { background: linear-gradient(90deg, transparent 25%, #173b4030 65%, #173b4066); backdrop-filter: none; justify-content: flex-end; padding: 0 6vw 0 0; }
+.friend-welcome .nick { width: min(340px, 35vw); max-height: calc(100dvh - 36px); overflow-y: auto; padding: 26px; border: 1px solid #ffedba; border-radius: 6px 24px 24px 24px; background: #f8f1de; color: #264d49; }
+.friend-welcome .nick > img { display: none; }
+.friend-welcome .nc-title { font: 800 12px 'Nunito', sans-serif; color: #836e42; letter-spacing: .08em; }
+.friend-welcome .nc-name { font-size: 44px; line-height: 1.15; margin: 16px 0 8px; overflow-wrap: anywhere; color: #264d49; -webkit-text-stroke: 0; text-shadow: none; }
+.friend-welcome .nc-sub { font: 700 13px 'Nunito', sans-serif; color: #6c796a; }
+.friend-welcome .nick .actions { gap: 8px; flex-wrap: wrap; }
+.friend-welcome .nick .actions .btn { font: 800 12px 'Nunito', sans-serif; padding: 8px 10px; box-shadow: none; border: 1px solid #ccc09c; text-shadow: none; background: #fff9eb; color: #476450; }
+.friend-welcome .nick .ok { width: 100%; font-size: 19px; padding: 13px 8px; background: #ffc76d; color: #324c39; border: 1px solid #bd7a2f; text-shadow: none; box-shadow: 0 3px 0 #b57a3d; }
+.ff-photo { display: block; border: 0; background: transparent; color: #527566; font: 800 13px 'Nunito', sans-serif; margin: 17px auto 0; padding: 9px 12px; min-height: 40px; cursor: pointer; }
+.ff-photo:disabled { opacity: .65; }
+@media (max-width: 699px) and (min-height: 501px) {
+  .ff-heading { top: max(22px, env(safe-area-inset-top)); }
+  .ff-heading > span { font-size: 9px; }
+  .ff-heading h2 { max-width: 310px; margin: 8px auto; font-size: 22px; }
+  .ff-info { top: auto; bottom: 116px; right: 5%; width: 90%; padding: 18px 20px; transform: none; }
+  .ff-info h3 { font-size: 30px; margin-top: 5px; }
+  .ff-personality { margin: 4px 0 10px; font-size: 13px; }
+  .ff-power { padding: 10px 0; gap: 10px; }
+  .ff-power-icon { width: 38px; height: 38px; flex-basis: 38px; font-size: 23px; }
+  .ff-power b { font-size: 14px; }
+  .ff-promise { font-size: 12px; }
+  .ff-foot { margin-top: 10px; font-size: 11px; }
+  .ff-options { bottom: max(20px, env(safe-area-inset-bottom)); gap: 8px; width: 90%; }
+  .ff-option { flex: 1; width: 0; height: 80px; border-radius: 14px; }
+  .ff-option img { width: 61px; height: 48px; }
+  .ff-option > span { font-size: 14px; }
+  .friend-welcome { align-items: flex-end; justify-content: center; padding: 0 0 max(24px, env(safe-area-inset-bottom)); }
+  .friend-welcome .nick { width: 90%; padding: 22px; max-height: 47dvh; }
+  .friend-welcome .nc-name { margin: 10px 0 5px; font-size: 36px; }
+  .friend-welcome .ff-photo { margin-top: 10px; }
+}
+@media (max-height: 500px) {
+  .ff-heading { top: 11px; }
+  .ff-heading > span { display: none; }
+  .ff-heading h2 { font-size: 18px; margin: 0; }
+  .ff-info { right: 4vw; top: 47%; padding: 14px 18px; width: 36vw; }
+  .ff-info h3 { font-size: 28px; margin: 3px 0; }
+  .ff-personality { margin: 4px 0 9px; font-size: 12px; }
+  .ff-power { padding: 9px 0; }
+  .ff-power-icon { width: 30px; height: 30px; flex-basis: 30px; font-size: 21px; }
+  .ff-power b { font-size: 13px; }
+  .ff-promise { font-size: 11px; }
+  .ff-go { font-size: 16px; padding: 8px 6px; }
+  .ff-foot { display: none; }
+  .ff-options { bottom: 12px; left: 30%; gap: 8px; }
+  .ff-option { width: 106px; height: 62px; flex-direction: row; gap: 1px; border-radius: 13px; }
+  .ff-option img { width: 46px; height: 48px; }
+  .ff-option > span { font-size: 12px; }
+  .ff-option i { display: none; }
+  .friend-welcome { padding-right: 4vw; }
+  .friend-welcome .nick { width: 36vw; padding: 16px 18px; }
+  .friend-welcome .nc-name { margin: 9px 0 5px; font-size: 32px; }
+  .friend-welcome .nc-sub { font-size: 11px; }
+  .friend-welcome .nick .actions { margin-top: 8px !important; }
+  .friend-welcome .nick .ok { padding: 8px 6px; font-size: 16px; }
+  .friend-welcome .ff-photo { margin-top: 5px; padding: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ff-option, .friend-welcome .nc-name { transition: none; animation: none; }
+}
+
 /* A quiet play view: the next goal and one message share a corner, leaving the scene open. */
 .hud-guide { position: absolute; left: calc(16px + env(safe-area-inset-left)); top: calc(16px + env(safe-area-inset-top)); width: min(340px, calc(100vw - 104px)); display: flex; flex-direction: column; gap: 8px; }
 .hud-guide .qcard, .hud-guide .qcard.opening { position: relative; inset: auto; max-width: none; width: 100%; margin: 0; }
@@ -1412,7 +1499,7 @@ body:has(#overlay .bigtext, #overlay .cine-text, #overlay .itemget, .recap, .sk-
   });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=38db5d3437';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=85d93e70bf';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -1438,7 +1525,7 @@ body:has(#overlay .bigtext, #overlay .cine-text, #overlay .itemget, .recap, .sk-
   }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     var s = document.createElement('script');
-    s.src = 'game.js?v=38db5d3437';
+    s.src = 'game.js?v=85d93e70bf';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
