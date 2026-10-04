@@ -1305,6 +1305,59 @@ body.pad .hb kbd { display: none; }
 @media (max-height: 600px) {
   .title-crest { display: none; }
 }
+
+/* A quiet play view: the next goal and one message share a corner, leaving the scene open. */
+.hud-guide { position: absolute; left: calc(16px + env(safe-area-inset-left)); top: calc(16px + env(safe-area-inset-top)); width: min(340px, calc(100vw - 104px)); display: flex; flex-direction: column; gap: 8px; }
+.hud-guide .qcard, .hud-guide .qcard.opening { position: relative; inset: auto; max-width: none; width: 100%; margin: 0; }
+.hud-guide .hint, .hud-guide .toasts { position: relative; inset: auto; transform: none; max-width: none; width: 100%; }
+.hud-guide .hint { display: none; padding: 9px 12px; border: 1px solid #fff5df; outline: 1px solid #314c4b66; border-radius: 14px; background: #fff8eff0; font-family: 'Nunito', sans-serif; font-size: 14px; line-height: 1.3; transition: none; }
+.hud-guide .hint.show { display: flex; opacity: 1; transform: none; }
+.hud-guide .hint .owl { font-size: 24px; flex: none; }
+.hud-guide .toasts:empty { display: none; }
+.hud-guide .toast { width: 100%; max-width: none; border: 1px solid #fff5df; outline: 1px solid #314c4b66; border-radius: 14px; padding: 9px 12px; font-family: 'Nunito', sans-serif; font-size: 14px; line-height: 1.3; text-align: left; }
+.hud-tr .pill:not(.bmode-badge), .hud-tr .stk-badge { display: none; }
+.minimap-wrap { width: 112px; height: 112px; }
+.hud-tl { left: auto; right: 144px; }
+.iprompt { left: 50%; top: auto; bottom: 116px; max-width: calc(100vw - 36px); white-space: normal; text-align: center; justify-content: center; }
+.pause-progress { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; color: var(--ink2); }
+.pause-progress span { white-space: nowrap; }
+body:has(.menu-back, .dialog, .lring, .first-buddy) .hud-guide .hud-messages,
+body:has(#overlay .bigtext, #overlay .cine-text, #overlay .itemget, .recap, .sk-dream, .stk-pop, .sk-pop, .unl-card, .biome-name.show, .morning-note) .hud-guide .hud-messages { visibility: hidden; }
+/* The hand already shows the nearby action; menu tools and collections live behind Pause. */
+.touch-mode .iprompt, .touch-mode .target-info, .touch-mode .bb-lantern,
+.touch-mode .hud-tr .voice-btn, .touch-mode .hud-tr .home-btn, .touch-mode .minimap-wrap { display: none; }
+#touch .t-top { left: auto; right: calc(16px + env(safe-area-inset-right)); top: calc(16px + env(safe-area-inset-top)); bottom: auto; transform: none; }
+#touch .t-top .t-sm:not([data-a="pause"]) { display: none; }
+.touch-mode:has(.t-act.ready) .q-how { display: none !important; }
+.touch-mode .pickups { top: 82px; bottom: auto; }
+.touch-mode .buddybar { transform: translateX(-50%); }
+.bb-team { display: none; }
+.touch-mode .bb-team { display: flex; align-items: center; justify-content: center; gap: 3px; width: 48px; height: 48px; padding: 0; border: 1px solid #fff5df; outline: 1px solid #314c4b66; border-radius: 50%; background: #fff8eff0; color: #2a4241; font-size: 22px; cursor: pointer; pointer-events: auto; box-shadow: var(--shadow); }
+.bb-team small { font-size: 13px; font-weight: 800; }
+.touch-mode .bb:not(.lead) { display: none; }
+.touch-mode .bb-slots { gap: 4px; padding: 6px 8px; }
+.touch-mode .bb, .touch-mode .bb.lead { width: 44px; height: 44px; }
+.touch-mode .bb img, .touch-mode .bb.lead img { inset: 5px; width: 34px; height: 34px; }
+.touch-mode .bb .key { display: none; }
+.touch-mode .hud-tl { right: 82px; }
+@media (max-height: 560px) {
+  .hud-guide { width: min(300px, calc(100vw - 88px)); top: calc(12px + env(safe-area-inset-top)); left: calc(12px + env(safe-area-inset-left)); gap: 6px; }
+  .hud-guide .qcard, .hud-guide .qcard.opening { padding: 9px 12px; border-radius: 14px; }
+  .hud-guide .q-ch { font-size: 9px; margin-bottom: 3px; }
+  .hud-guide .q-goal { font-size: 16px; }
+  .hud-guide .q-ico { font-size: 24px; min-width: 24px; }
+  .hud-guide .q-how { font-size: 12px; margin-top: 6px; padding-top: 5px; }
+  .hud-guide .hint, .hud-guide .toast { font-size: 13px; padding: 7px 10px; }
+  .touch-mode .teach { bottom: 110px; }
+}
+@media (max-width: 600px) and (min-height: 561px) {
+  .touch-mode .buddybar { bottom: 280px; max-width: calc(100vw - 24px); }
+}
+.hud-guide .teach { position: relative; inset: auto; width: 100%; max-width: none; transform: none; display: none; flex-wrap: wrap; white-space: normal; gap: 6px 9px; padding: 9px 12px; font-size: 14px; border-radius: 14px; }
+.hud-guide .teach.show:not(.done) { display: flex; opacity: 1; transform: none; }
+.hud-guide .teach .t-new { font-size: 11px; padding: 3px 5px; }
+.hud-guide .teach .t-txt { font-size: 14px; }
+.hud-guide .teach .t-keys kbd { font-size: 14px; }
 </style>
 </head>
 <body>
@@ -1339,7 +1392,7 @@ body.pad .hb kbd { display: none; }
   });
   // fetch game.js at the same time as the models instead of after them
   var pre = document.createElement('link');
-  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=accda45bd9';
+  pre.rel = 'preload'; pre.as = 'script'; pre.href = 'game.js?v=eca11037ce';
   document.head.appendChild(pre);
   var box = document.getElementById('loading');
   var bar = document.createElement('div');
@@ -1365,7 +1418,7 @@ body.pad .hb kbd { display: none; }
   }
   Promise.all(now.map(function (f) { return get(f, 2); })).then(function () {
     var s = document.createElement('script');
-    s.src = 'game.js?v=accda45bd9';
+    s.src = 'game.js?v=eca11037ce';
     s.onerror = function () { fail(new Error('game.js could not be loaded')); };
     document.body.appendChild(s);
   }, fail);
